@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Внедрение ИИ в бизнес под ключ: AI-агенты и чат-боты | AIPAI</title>
+<meta name="description" content="Внедряем искусственный интеллект в бизнес-процессы: AI-ассистенты для заявок, базы знаний и документов. Бесплатный разбор задачи, пилот — 2–4 недели.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#060A1C">
+<style>
+:root{
+  --bg:#060A1C;
+  --bg-2:#0A1030;
+  --panel:rgba(255,255,255,.035);
+  --panel-2:rgba(255,255,255,.06);
+  --text:#E9EDFB;
+  --mute:#8E99C0;
+  --line:rgba(150,170,230,.14);
+  --blue:#2F6BFF;
+  --blue-l:#5B8CFF;
+  --violet:#8A6CFF;
+  --cyan:#53E0E6;
+  --amber:#FFB938;
+  --ok:#3DDC97;
+  --grad:linear-gradient(100deg,#5B8CFF 0%,#8A6CFF 45%,#53E0E6 100%);
+  --r-panel:22px;
+  --r-ctl:12px;
+  --wrap:1220px;
+  --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 "Onest",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--violet);color:#fff}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);position:relative}
+h1,h2,h3{font-family:"Unbounded","Onest",sans-serif;font-weight:500;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(28px,3.9vw,56px);line-height:1.05;letter-spacing:-.03em}
+h2{font-size:clamp(28px,3.4vw,46px);line-height:1.1}
+h3{font-size:20px;line-height:1.3}
+p{margin:0}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--mute);max-width:34em}
+section{padding:clamp(72px,9vw,130px) 0;position:relative}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:52px}
+.sec-head p{color:var(--mute);max-width:32em}
+@media(max-width:860px){.sec-head{grid-template-columns:1fr}}
+
+/* glow helpers */
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.55}
+section>.wrap,.hero>.wrap{z-index:1}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:var(--r-ctl);font:500 16px/1 "Onest",sans-serif;text-decoration:none;border:0;cursor:pointer;transition:box-shadow .25s,background .25s,transform .25s}
+.btn-main{background:linear-gradient(100deg,#2F6BFF,#6A5CFF);color:#fff;box-shadow:0 10px 30px -10px rgba(76,110,255,.8),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-main:hover{box-shadow:0 14px 40px -8px rgba(110,120,255,.95),inset 0 1px 0 rgba(255,255,255,.3);transform:translateY(-1px)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1px rgba(160,180,255,.5);background:rgba(255,255,255,.07)}
+
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(6,10,28,.6);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid transparent;transition:border-color .2s}
+header.scrolled{border-color:var(--line)}
+.hdr{display:flex;align-items:center;gap:32px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 22px "Unbounded",sans-serif;letter-spacing:-.03em}
+.nav{display:flex;gap:26px;margin-left:auto}
+.nav a{text-decoration:none;font-size:15px;color:var(--mute);transition:color .2s}
+.nav a:hover{color:var(--text)}
+.hdr-tel{font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap}
+.hdr .btn{height:42px;padding:0 18px;font-size:15px}
+.burger{display:none;margin-left:auto;width:44px;height:44px;border:1px solid var(--line);background:var(--panel);border-radius:var(--r-ctl);cursor:pointer}
+.burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto}
+@media(max-width:1080px){.nav,.hdr-tel{display:none}.burger{display:block}.hdr .btn{display:none}
+  header.open .nav{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--bg);padding:16px var(--gut) 24px;gap:16px;border-bottom:1px solid var(--line)}
+  header.open .nav a{font-size:18px;color:var(--text)}}
+
+/* hero */
+.hero{padding:clamp(48px,7vw,96px) 0 clamp(64px,8vw,110px);position:relative;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-1}
+.hero-bg canvas{width:100%;height:100%;display:block}
+.hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 75% 40%,rgba(80,100,255,.28),transparent 70%),radial-gradient(40% 50% at 10% 100%,rgba(83,224,230,.12),transparent 70%),linear-gradient(180deg,transparent 70%,var(--bg))}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center}
+.hero-for{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--text);margin-bottom:28px;padding:7px 14px 7px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.hero-for::before{content:"";width:18px;height:18px;border-radius:50%;background:var(--grad);box-shadow:0 0 14px rgba(120,130,255,.8)}
+.hero h1{margin-bottom:28px}
+.hero h1 span{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{margin-bottom:38px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:48px}
+.hero-facts{display:grid;grid-template-columns:repeat(3,auto);gap:8px 40px;justify-content:start;border-top:1px solid var(--line);padding-top:26px}
+.hero-facts b{display:block;font:500 22px "Unbounded",sans-serif;letter-spacing:-.02em;margin-bottom:4px}
+.hero-facts span{font-size:14px;color:var(--mute)}
+@media(max-width:1060px){.hero-grid{grid-template-columns:1fr}.flow{max-width:620px}}
+@media(max-width:520px){.hero-facts{grid-template-columns:1fr 1fr}}
+
+/* live flow */
+.flow{position:relative;background:linear-gradient(180deg,rgba(20,28,70,.75),rgba(10,15,45,.75));backdrop-filter:blur(12px);border-radius:var(--r-panel);border:1px solid rgba(150,170,255,.22);overflow:hidden;box-shadow:0 40px 100px -30px rgba(60,80,255,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+.flow::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(140deg,rgba(91,140,255,.8),transparent 40%,transparent 60%,rgba(83,224,230,.6));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.flow-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
+.flow-top .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;vertical-align:1px;box-shadow:0 0 10px var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.flow-replay{background:none;border:0;font:500 13px "Onest";color:var(--cyan);cursor:pointer;padding:4px}
+.flow-body{padding:20px;display:grid;gap:12px}
+.stage{border-radius:14px;padding:14px 16px;opacity:.18;transition:opacity .5s,transform .5s;transform:translateY(6px);border:1px solid var(--line)}
+.stage.on{opacity:1;transform:none}
+.stage-name{font-size:12px;color:var(--mute);margin-bottom:8px;display:flex;justify-content:space-between}
+.msg{background:rgba(255,255,255,.04);font-size:15px;line-height:1.5}
+.msg q{quotes:none}
+.ai{background:linear-gradient(120deg,rgba(47,107,255,.18),rgba(138,108,255,.12));border-color:rgba(120,140,255,.3)}
+.ai .stage-name span:first-child{color:var(--blue-l)}
+.fields{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font:400 13.5px/1.6 "JetBrains Mono",monospace;margin:0}
+.fields dt{color:var(--mute)}
+.fields dd{margin:0;color:var(--cyan);opacity:0;transition:opacity .3s}
+.fields dd.on{opacity:1}
+.human{background:rgba(255,185,56,.1);border-color:rgba(255,185,56,.35);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.human p{font-size:15px}
+.human b{color:var(--amber);font-weight:600}
+.human button{height:38px;padding:0 16px;border-radius:9px;border:0;background:var(--amber);color:#1A1200;font:600 14px "Onest";cursor:pointer;box-shadow:0 6px 20px -6px rgba(255,185,56,.7)}
+.human.done{background:rgba(61,220,151,.1);border-color:rgba(61,220,151,.4)}
+.human.done b{color:var(--ok)}
+.human.done button{background:var(--ok);color:#00170C;box-shadow:0 6px 20px -6px rgba(61,220,151,.7)}
+
+/* stack */
+.stack{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;background:rgba(255,255,255,.015)}
+.stack .wrap{display:flex;align-items:center;gap:32px}
+.stack p{font-size:14px;color:var(--mute);flex:none}
+.marq{overflow:hidden;flex:1;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.stack ul{display:flex;gap:44px;list-style:none;margin:0;padding:0;font:500 16px "Unbounded",sans-serif;color:#C3CBEA;width:max-content;animation:marq 40s linear infinite}
+@keyframes marq{to{transform:translateX(-50%)}}
+@media(max-width:700px){.stack .wrap{flex-direction:column;align-items:flex-start;gap:14px}.marq{width:100%}}
+
+/* solutions */
+.sol{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:32px;align-items:start}
+.sol-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.sol-list button{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:22px 8px 22px 0;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;font:400 19px/1.3 "Onest";color:var(--mute);cursor:pointer;transition:color .2s,padding .25s}
+.sol-list button:hover{color:var(--text)}
+.sol-list button[aria-selected=true]{color:var(--text);padding-left:14px;font-weight:500}
+.sol-list button i{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(150,170,230,.4)}
+.sol-list button[aria-selected=true] i{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.sol-card{position:sticky;top:100px;min-height:380px;display:flex;flex-direction:column;border-radius:var(--r-panel);padding:clamp(28px,4vw,48px);background:radial-gradient(120% 90% at 100% 0%,rgba(138,108,255,.35),transparent 55%),radial-gradient(90% 80% at 0% 100%,rgba(47,107,255,.35),transparent 60%),#0C1338;border:1px solid rgba(150,170,255,.25);overflow:hidden}
+.sol-card::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;-webkit-mask:radial-gradient(80% 80% at 70% 20%,#000,transparent);mask:radial-gradient(80% 80% at 70% 20%,#000,transparent);pointer-events:none}
+.sol-card>*{position:relative;z-index:1}
+.sol-card small{font-size:14px;color:var(--cyan)}
+.sol-card h3{font-size:clamp(24px,2.6vw,34px);margin:12px 0 28px}
+.sol-card ul{list-style:none;padding:0;margin:0 0 32px;display:grid;gap:12px}
+.sol-card li{padding-left:28px;position:relative;font-size:17px}
+.sol-card li::before{content:"";position:absolute;left:0;top:.6em;width:14px;height:2px;background:var(--grad)}
+.sol-card .btn{margin-top:auto;align-self:flex-start}
+.sol-card[data-panel]{display:none}
+.sol-card.active{display:flex}
+.sectors{margin-top:60px;display:grid;grid-template-columns:auto 1fr;gap:16px 32px;align-items:baseline}
+.sectors p{font-size:14px;color:var(--mute)}
+.sectors ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.sectors li a{display:inline-block;padding:9px 16px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:15px;text-decoration:none;transition:border-color .2s,background .2s}
+.sectors li a:hover{border-color:rgba(83,224,230,.6);background:rgba(83,224,230,.06)}
+@media(max-width:860px){.sol{grid-template-columns:1fr}.sol-card{position:relative;top:0;order:-1}.sectors{grid-template-columns:1fr}}
+
+/* lab */
+.lab{background:linear-gradient(180deg,var(--bg),var(--bg-2) 50%,var(--bg))}
+.tests{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.test{padding:28px;display:flex;flex-direction:column;gap:16px;border-radius:var(--r-panel);background:var(--panel);border:1px solid var(--line);transition:border-color .25s}
+.test:hover{border-color:rgba(120,140,255,.45)}
+.test-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);font-family:"JetBrains Mono",monospace}
+.test h3{font-size:18px;line-height:1.35}
+.test p.q{font-size:15px;color:var(--mute)}
+.score{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.score b{font:500 46px/1 "Unbounded",sans-serif;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.score span{font-size:14px;color:var(--mute)}
+.bar{height:8px;border-radius:4px;background:rgba(255,255,255,.07);display:flex;overflow:hidden;gap:2px}
+.bar i{display:block;height:100%;border-radius:4px}
+.bar .b-ok{background:linear-gradient(90deg,#2F6BFF,#53E0E6)}
+.bar .b-h{background:var(--amber)}
+.legend{font-size:14px;line-height:1.5}
+.legend em{font-style:normal;display:inline-flex;align-items:center;gap:6px;margin-right:14px}
+.legend em::before{content:"";width:9px;height:9px;border-radius:3px;background:var(--cyan)}
+.legend em.h::before{background:var(--amber)}
+.test a.more{font-weight:500;font-size:15px;color:var(--cyan);text-decoration:none}
+.test a.more:hover{text-decoration:underline}
+.lab-foot{margin-top:32px}
+@media(max-width:900px){.tests{grid-template-columns:1fr}}
+
+/* cases */
+.own{position:relative;overflow:hidden;border-radius:var(--r-panel);padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;background:radial-gradient(70% 90% at 100% 100%,rgba(83,224,230,.18),transparent 60%),radial-gradient(60% 80% at 0% 0%,rgba(47,107,255,.3),transparent 60%),#0B1236;border:1px solid rgba(150,170,255,.22)}
+.own>*{position:relative}
+.own small{color:var(--cyan);font-size:14px}
+.own h3{font-size:clamp(24px,2.8vw,36px);margin:14px 0 20px}
+.own p{color:#B7C1E3;font-size:16px}
+.own-nums{display:grid;grid-template-columns:1fr 1fr;align-content:start}
+.own-nums div{padding:22px 0;border-top:1px solid var(--line)}
+.own-nums div:nth-child(odd){padding-right:20px}
+.own-nums b{display:block;font:500 clamp(32px,3.8vw,50px)/1 "Unbounded",sans-serif;letter-spacing:-.03em;margin-bottom:10px}
+.own-nums span{font-size:14px;color:var(--mute)}
+@media(max-width:900px){.own{grid-template-columns:1fr}}
+.partners{margin-top:72px}
+.partners>h3{font-size:24px;margin-bottom:8px}
+.partners>p{color:var(--mute);margin-bottom:24px}
+.prow{display:grid;grid-template-columns:210px minmax(0,1.3fr) minmax(0,1fr) auto;gap:24px;align-items:center;padding:26px 0;border-top:1px solid var(--line);transition:background .25s}
+.prow:hover{background:linear-gradient(90deg,transparent,rgba(91,140,255,.06),transparent)}
+.prow:last-of-type{border-bottom:1px solid var(--line)}
+.prow small{display:block;font-size:13px;color:var(--mute)}
+.prow strong{font-size:17px;font-weight:600}
+.prow h4{margin:0;font-size:17px;font-weight:400;line-height:1.45}
+.prow ul{margin:0;padding:0;list-style:none;font-size:14px;color:var(--mute);display:grid;gap:4px}
+.prow a{font-weight:500;font-size:15px;color:var(--cyan);text-decoration:none;white-space:nowrap}
+.partners .note{margin-top:20px;font-size:15px;color:var(--mute)}
+@media(max-width:900px){.prow{grid-template-columns:1fr;gap:10px}}
+
+/* score */
+.scoreblock{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.scoreblock .btn{margin:32px 0 12px}
+.scoreblock small{display:block;font-size:14px;color:var(--mute)}
+.radar{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-panel);padding:30px;box-shadow:0 30px 80px -40px rgba(80,100,255,.6)}
+.radar-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
+.radar-head>span{font-size:14px;color:var(--mute)}
+.radar-head b{font:500 48px/1 "Unbounded",sans-serif;letter-spacing:-.03em}
+.radar-head b span{font-size:16px;color:var(--mute)}
+.factor{display:grid;grid-template-columns:1fr 46px;gap:6px 12px;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.factor small{grid-column:1/-1;margin-top:-4px;font-size:13px;color:var(--mute)}
+.factor .bar{grid-column:1/-1}
+.factor output{text-align:right;font-weight:500;font-family:"JetBrains Mono",monospace;font-size:14px}
+@media(max-width:900px){.scoreblock{grid-template-columns:1fr}}
+
+/* process */
+#process{background:linear-gradient(180deg,var(--bg),var(--bg-2))}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;list-style:none;margin:0;padding:0}
+.step{padding:0 20px 0 0;position:relative}
+.step-dot{display:flex;align-items:center;margin-bottom:24px}
+.step-dot i{width:14px;height:14px;border-radius:50%;background:var(--cyan);flex:none;box-shadow:0 0 0 5px rgba(83,224,230,.15),0 0 16px var(--cyan)}
+.step-dot::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(83,224,230,.6),rgba(91,140,255,.3))}
+.step:last-child .step-dot::after{background:linear-gradient(90deg,rgba(91,140,255,.4),transparent)}
+.step em{font-style:normal;font-size:13px;color:var(--cyan);font-family:"JetBrains Mono",monospace}
+.step h3{font-size:18px;margin:8px 0 8px}
+.step p{font-size:15px;color:var(--mute)}
+@media(max-width:900px){.steps{grid-template-columns:1fr;gap:28px}.step{padding:0 0 0 34px}.step-dot{position:absolute;left:0;top:4px;margin:0}.step-dot::after{display:none}}
+.pilot{margin-top:80px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pilot>div{background:var(--panel);border-radius:var(--r-panel);padding:clamp(24px,3vw,38px);border:1px solid var(--line)}
+.pilot>div:last-child{background:radial-gradient(100% 100% at 100% 0%,rgba(138,108,255,.45),transparent 60%),linear-gradient(140deg,#1F4FE0,#3A2FB8);border-color:rgba(160,170,255,.35)}
+.pilot h3{margin-bottom:22px}
+.pilot small{display:block;font-size:13px;margin-bottom:8px;color:var(--mute);font-family:"JetBrains Mono",monospace}
+.pilot>div:last-child small{color:#CFDAFF}
+.pilot ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.pilot li{padding-left:26px;position:relative;font-size:16px}
+.pilot li::before{content:"";position:absolute;left:0;top:.62em;width:12px;height:2px;background:var(--cyan)}
+.pilot>div:last-child li::before{background:#fff}
+.pilot-note{grid-column:1/-1;font-size:15px;color:var(--mute);padding:8px 4px 0}
+@media(max-width:800px){.pilot{grid-template-columns:1fr}}
+
+/* security */
+.sec-wrap{background:var(--bg-2)}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.badges span{padding:8px 14px;border-radius:999px;border:1px solid rgba(83,224,230,.35);color:var(--cyan);font-weight:500;font-size:14px;background:rgba(83,224,230,.06)}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sgrid div{padding:26px;border-radius:18px;background:var(--panel);border:1px solid var(--line)}
+.sgrid h3{font-size:17px;margin-bottom:10px}
+.sgrid p{color:var(--mute);font-size:15px}
+.sgrid div.human-item{background:rgba(255,185,56,.07);border-color:rgba(255,185,56,.35)}
+.sgrid div.human-item h3{color:var(--amber)}
+@media(max-width:900px){.sgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.sgrid{grid-template-columns:1fr}}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-panel);padding:34px;display:flex;flex-direction:column;position:relative}
+.plan.best{background:radial-gradient(120% 70% at 50% 0%,rgba(91,110,255,.3),transparent 60%),#0C1338;border-color:transparent;box-shadow:0 30px 80px -30px rgba(90,100,255,.7)}
+.plan.best::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.plan.best .tag{position:absolute;top:-13px;left:30px;background:var(--grad);color:#08102E;font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px}
+.plan h3{font-size:22px}
+.plan>p{color:var(--mute);font-size:15px;margin:6px 0 26px}
+.price{font:500 clamp(28px,2.8vw,36px) "Unbounded",sans-serif;letter-spacing:-.03em}
+.price+small{font-size:14px;color:var(--mute);margin-bottom:24px;display:block}
+.plan ul{list-style:none;margin:0 0 30px;padding:22px 0 0;border-top:1px solid var(--line);display:grid;gap:11px;font-size:15px}
+.plan li::before{content:"✓";color:var(--cyan);font-weight:700;margin-right:10px}
+.plan .btn{margin-top:auto}
+.extras{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.extras h4{margin:0 0 8px;font-size:17px;font-weight:500}
+.extras p{font-size:15px;color:var(--mute)}
+@media(max-width:900px){.plans,.extras{grid-template-columns:1fr}}
+
+/* reviews */
+.reviews{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(290px,400px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:18px;scrollbar-width:thin;scrollbar-color:rgba(150,170,230,.3) transparent}
+.rev{scroll-snap-align:start;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-panel);padding:28px;display:flex;flex-direction:column;gap:20px;margin:0}
+.rev blockquote{margin:0;font-size:15.5px;line-height:1.6;color:#D3D9F0}
+.rev footer{margin-top:auto;font-size:14px;color:var(--mute);border-top:1px solid var(--line);padding-top:14px}
+.rev footer b{display:block;color:var(--text);font-weight:500}
+.rev-nav{display:flex;gap:8px}
+.rev-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:18px;cursor:pointer}
+.rev-nav button:hover{border-color:var(--cyan)}
+
+/* faq */
+#faq{background:var(--bg-2)}
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px}
+.faq-aside p{color:var(--mute);margin-top:18px}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-weight:500;font-size:18px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:11px;height:11px;margin-top:-8px;border-right:2px solid var(--cyan);border-bottom:2px solid var(--cyan);transform:rotate(45deg);transition:transform .25s}
+details[open] summary::after{transform:rotate(-135deg);margin-top:-2px}
+details p{padding:0 40px 24px 0;color:var(--mute)}
+@media(max-width:860px){.faq{grid-template-columns:1fr}}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.member{display:grid;grid-template-columns:60px 1fr;gap:16px;padding:24px;border-radius:18px;background:var(--panel);border:1px solid var(--line)}
+.ava{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(83,224,230,.5),rgba(47,107,255,.5) 60%,rgba(138,108,255,.5));color:#fff;display:grid;place-items:center;font:500 17px "Unbounded",sans-serif;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.member h3{font-size:16px}
+.member b{display:block;font-weight:500;font-size:14px;color:var(--cyan);margin:4px 0 8px}
+.member p{font-size:14.5px;color:var(--mute)}
+@media(max-width:900px){.team{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.team{grid-template-columns:1fr}}
+
+/* contact */
+.contact{position:relative;overflow:hidden;border-radius:28px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:56px;background:radial-gradient(80% 100% at 0% 0%,rgba(83,224,230,.25),transparent 55%),radial-gradient(80% 100% at 100% 100%,rgba(138,108,255,.55),transparent 60%),linear-gradient(135deg,#1E4CE0,#2A1F9A);box-shadow:0 40px 120px -40px rgba(80,90,255,.8)}
+.contact::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:40px 40px;-webkit-mask:linear-gradient(90deg,#000,transparent 60%);mask:linear-gradient(90deg,#000,transparent 60%);pointer-events:none}
+.contact>*{position:relative;z-index:1}
+.contact h2{margin-bottom:20px}
+.contact>div>p{color:#DCE5FF;margin-bottom:28px}
+.contact ul{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:10px}
+.contact li{padding-left:26px;position:relative}
+.contact li::before{content:"✓";position:absolute;left:0;font-weight:700;color:var(--cyan)}
+.contact h4{margin:0 0 10px;font-size:16px;font-weight:500}
+.contact .tell{font-size:15px;color:#C9D5FF}
+.contact .tel{display:inline-block;margin-top:24px;font:500 24px "Unbounded",sans-serif;text-decoration:none;letter-spacing:-.02em}
+.form{background:rgba(6,10,28,.82);backdrop-filter:blur(10px);color:var(--text);border-radius:18px;padding:clamp(22px,3vw,36px);border:1px solid rgba(255,255,255,.12)}
+.form h3{margin-bottom:10px}
+.form>p{font-size:15px;color:var(--mute);margin-bottom:22px}
+.form label{display:block;font-size:14px;font-weight:500;margin-bottom:14px}
+.form input[type=text],.form input[type=tel],.form input[type=url]{display:block;width:100%;margin-top:6px;height:50px;border-radius:var(--r-ctl);border:1px solid var(--line);padding:0 14px;font:400 16px "Onest";color:var(--text);background:rgba(255,255,255,.04);transition:border-color .2s,box-shadow .2s}
+.form input:focus{outline:none;border-color:var(--blue-l);box-shadow:0 0 0 4px rgba(91,140,255,.2)}
+.form .agree{display:flex;gap:10px;font-size:13px;font-weight:400;color:var(--mute);line-height:1.45;align-items:flex-start}
+.form .agree input{margin-top:3px;accent-color:var(--blue)}
+.form .btn{width:100%;margin-top:6px}
+.form-msg{margin-top:12px;font-size:14px;color:var(--ok);min-height:1.4em}
+@media(max-width:900px){.contact{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px}
+.about-txt{display:grid;gap:26px;color:var(--mute);font-size:16px}
+.about-txt h3{color:var(--text);font-size:17px;margin-bottom:8px}
+@media(max-width:860px){.about{grid-template-columns:1fr}}
+
+footer.site{border-top:1px solid var(--line);padding:40px 0 64px;font-size:14px;color:var(--mute)}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;justify-content:space-between}
+footer.site nav{display:flex;flex-wrap:wrap;gap:12px 24px}
+footer.site a{text-decoration:none}
+footer.site a:hover{color:var(--text)}
+
+/* watermark */
+.wm{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.08;transform:rotate(-24deg);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='140'%3E%3Ctext x='10' y='80' font-family='Arial' font-size='26' font-weight='700' fill='%23A9B8FF'%3Esakina_web%3C/text%3E%3C/svg%3E");background-repeat:repeat}
+.wm-badge{position:fixed;right:16px;bottom:16px;z-index:91;pointer-events:none;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:12px;padding:7px 12px;border-radius:999px}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wm" aria-hidden="true"></div>
+<div class="wm-badge">Демо - дизайн sakina_web</div>
+
+<header id="top">
+  <div class="wrap hdr">
+    <a href="#top" class="logo" aria-label="AIPAI – на главную">
+      <svg width="36" height="36" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="47" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B8CFF"/><stop offset=".55" stop-color="#8A6CFF"/><stop offset="1" stop-color="#53E0E6"/></linearGradient></defs><circle cx="48" cy="48" r="24" fill="none" stroke="#fff" stroke-width="6"/><circle cx="48" cy="48" r="8" fill="#fff"/></svg>
+      aipai
+    </a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="#solutions">Решения</a>
+      <a href="https://aipai.ru/razbor/">Разбор</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#process">Как&nbsp;работаем</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="https://aipai.ru/blog/">Блог</a>
+      <a href="#about">О&nbsp;нас</a>
+    </nav>
+    <a class="hdr-tel" href="tel:+79260999927">+7 (926) 099-99-27</a>
+    <a class="btn btn-main" href="#contact">Разобрать задачу</a>
+    <button class="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"><canvas id="net"></canvas></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-for">Для&nbsp;бизнеса, где&nbsp;много заявок, обращений и&nbsp;документов</span>
+      <h1>Внедрение ИИ <span>и&nbsp;автоматизация бизнес-процессов</span></h1>
+      <p class="lead">AI-ассистенты отвечают клиентам, находят ответы в&nbsp;ваших документах и&nbsp;заполняют CRM. Начинаем с&nbsp;пилота на&nbsp;одном процессе.</p>
+      <div class="hero-cta">
+        <a class="btn btn-main" href="#contact">Разобрать задачу</a>
+        <a class="btn btn-ghost" href="#solutions">Посмотреть решения</a>
+      </div>
+      <div class="hero-facts">
+        <div><b>2–4&nbsp;нед.</b><span>пилот на&nbsp;одном процессе</span></div>
+        <div><b>150&nbsp;000&nbsp;₽</b><span>минимальная цена пилота</span></div>
+        <div><b>152-ФЗ</b><span>данные в&nbsp;РФ&nbsp;или&nbsp;у&nbsp;вас</span></div>
+      </div>
+    </div>
+
+    <div class="flow" aria-label="Пример: как ассистент обрабатывает заявку">
+      <div class="flow-top"><span><i class="dot"></i>Так&nbsp;ассистент обрабатывает заявку</span><button class="flow-replay" type="button">Повторить</button></div>
+      <div class="flow-body">
+        <div class="stage msg" data-s="0">
+          <div class="stage-name"><span>Входящее · Telegram</span><span>09:12</span></div>
+          <q>Здравствуйте! Нужен бот&nbsp;для&nbsp;записи клиентов в&nbsp;три&nbsp;наших салона, бюджет около 200&nbsp;тысяч, хотим запуститься к&nbsp;декабрю. Анна, «Студия Лён»</q>
+        </div>
+        <div class="stage ai" data-s="1">
+          <div class="stage-name"><span>AI разбирает заявку</span><span>4&nbsp;сек.</span></div>
+          <dl class="fields">
+            <dt>Имя</dt><dd>Анна</dd>
+            <dt>Компания</dt><dd>Студия Лён</dd>
+            <dt>Услуга</dt><dd>AI-бот для&nbsp;записи</dd>
+            <dt>Бюджет</dt><dd>≈ 200&nbsp;000&nbsp;₽</dd>
+            <dt>Срок</dt><dd>декабрь</dd>
+          </dl>
+        </div>
+        <div class="stage human" data-s="2">
+          <p><b>Сотрудник проверяет</b><br>карточку перед записью в&nbsp;CRM</p>
+          <button type="button" class="confirm">Подтвердить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stack">
+  <div class="wrap">
+    <p>Подключаем ИИ&nbsp;к&nbsp;вашим системам</p>
+    <div class="marq"><ul><li>GigaChat</li><li>YandexGPT</li><li>DeepSeek</li><li>Qwen</li><li>Bitrix24</li><li>amoCRM</li><li>1С</li><li>Telegram</li><li>WhatsApp</li><li>MAX</li><li aria-hidden="true">GigaChat</li><li aria-hidden="true">YandexGPT</li><li aria-hidden="true">DeepSeek</li><li aria-hidden="true">Qwen</li><li aria-hidden="true">Bitrix24</li><li aria-hidden="true">amoCRM</li><li aria-hidden="true">1С</li><li aria-hidden="true">Telegram</li><li aria-hidden="true">WhatsApp</li><li aria-hidden="true">MAX</li></ul></div>
+  </div>
+</div>
+
+<section id="solutions">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Ваша задача → наше решение</h2>
+      <p>Выберите, что&nbsp;мешает работать,&nbsp;– покажем, как&nbsp;это&nbsp;решает AI. Начинаем с&nbsp;пилота на&nbsp;одном процессе: 2–4&nbsp;недели, смета и&nbsp;критерии приёмки&nbsp;– до&nbsp;старта.</p>
+    </div>
+    <div class="sol">
+      <ul class="sol-list" role="tablist" aria-label="Задачи">
+        <li><button role="tab" aria-selected="true" data-t="0">Не&nbsp;терять входящие заявки<i></i></button></li>
+        <li><button role="tab" aria-selected="false" data-t="1">Снять типовые вопросы с&nbsp;операторов<i></i></button></li>
+        <li><button role="tab" aria-selected="false" data-t="2">Убрать ручную работу с&nbsp;документами<i></i></button></li>
+        <li><button role="tab" aria-selected="false" data-t="3">Отвечать клиентам в&nbsp;мессенджерах<i></i></button></li>
+        <li><button role="tab" aria-selected="false" data-t="4">Понимать цифры быстрее<i></i></button></li>
+        <li><button role="tab" aria-selected="false" data-t="5">Делать контент без&nbsp;рутины<i></i></button></li>
+      </ul>
+      <div>
+        <div class="sol-card active" data-panel="0" role="tabpanel"><small>Решение</small><h3>AI для&nbsp;продаж</h3><ul><li>Разбор заявок</li><li>Запись в&nbsp;CRM</li><li>Первый ответ</li></ul><a class="btn btn-main" href="#contact">Разобрать задачу</a></div>
+        <div class="sol-card" data-panel="1" role="tabpanel"><small>Решение</small><h3>AI для&nbsp;сервиса и&nbsp;поддержки</h3><ul><li>Ответы по&nbsp;базе знаний</li><li>Сложное&nbsp;– человеку</li></ul><a class="btn btn-main" href="#contact">Разобрать задачу</a></div>
+        <div class="sol-card" data-panel="2" role="tabpanel"><small>Решение</small><h3>Корпоративный AI-ассистент</h3><ul><li>Распознавание</li><li>Перенос в&nbsp;1С и&nbsp;CRM</li><li>Поиск по&nbsp;регламентам</li></ul><a class="btn btn-main" href="#contact">Разобрать задачу</a></div>
+        <div class="sol-card" data-panel="3" role="tabpanel"><small>Решение</small><h3>AI-бот для&nbsp;сайта, Telegram и&nbsp;WhatsApp</h3><ul><li>Консультации</li><li>Запись</li><li>Передача менеджеру</li></ul><a class="btn btn-main" href="#contact">Разобрать задачу</a></div>
+        <div class="sol-card" data-panel="4" role="tabpanel"><small>Решение</small><h3>AI для&nbsp;аналитики</h3><ul><li>Отчёты из&nbsp;CRM и&nbsp;таблиц</li><li>Поиск отклонений</li></ul><a class="btn btn-main" href="#contact">Разобрать задачу</a></div>
+        <div class="sol-card" data-panel="5" role="tabpanel"><small>Решение</small><h3>AI для&nbsp;контента</h3><ul><li>Статьи и&nbsp;посты</li><li>Описания товаров</li><li>КП&nbsp;и&nbsp;письма</li></ul><a class="btn btn-main" href="#contact">Разобрать задачу</a></div>
+      </div>
+    </div>
+    <div class="sectors">
+      <p>Отраслевые решения</p>
+      <ul><li><a href="#">Ритейл и&nbsp;e-commerce</a></li><li><a href="#">Услуги и&nbsp;консалтинг</a></li><li><a href="#">Производство</a></li><li><a href="#">Логистика</a></li><li><a href="#">Недвижимость</a></li><li><a href="#">Медицина</a></li><li><a href="#">Финансы и&nbsp;страхование</a></li><li><a href="#">Образование</a></li><li><a href="#">AI для&nbsp;маркетинга</a></li><li><a href="#">Боты для&nbsp;Telegram на&nbsp;базе AI</a></li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="lab" id="razbor">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Не&nbsp;верьте нашим словам. Посмотрите, как&nbsp;AI работает</h2>
+      <p>Берём реальные бизнес-процессы, отдаём их&nbsp;AI и&nbsp;публикуем результат&nbsp;– включая стоимость, ошибки и&nbsp;ограничения.</p>
+    </div>
+    <div class="tests">
+      <article class="test">
+        <div class="test-meta"><span>№003 · CRM</span><span>5&nbsp;октября 2026</span></div>
+        <h3>Может&nbsp;ли&nbsp;AI заполнять CRM без&nbsp;ручного копирования?</h3>
+        <p class="q">Сможет&nbsp;ли&nbsp;AI сам&nbsp;переносить письма, сообщения и&nbsp;звонки в&nbsp;карточку CRM: найти имя, компанию, телефон, почту, город, услугу, бюджет и&nbsp;срок.</p>
+        <div class="score"><b>67</b><span>/100&nbsp;оценка</span></div>
+        <div class="bar" role="img" aria-label="125 из 130 верно, 1 передано человеку"><i class="b-ok" style="width:96.2%"></i><i class="b-h" style="width:.8%"></i></div>
+        <p class="legend"><em>125&nbsp;из&nbsp;130&nbsp;– верно</em><em class="h">1&nbsp;– человеку</em></p>
+        <a class="more" href="https://aipai.ru/razbor/">Смотреть разбор</a>
+      </article>
+      <article class="test">
+        <div class="test-meta"><span>№002 · Документы</span><span>5&nbsp;октября 2026</span></div>
+        <h3>Может&nbsp;ли&nbsp;AI обработать 500&nbsp;документов без&nbsp;ошибок?</h3>
+        <p class="q">Сможет&nbsp;ли&nbsp;AI достать из&nbsp;счетов, актов, УПД, накладных и&nbsp;договоров то, что&nbsp;нужно для&nbsp;учёта: тип, номер, дату, ИНН&nbsp;сторон, сумму.</p>
+        <div class="score"><b>72</b><span>/100&nbsp;оценка</span></div>
+        <div class="bar" role="img" aria-label="500 из 500 верно, 220 передано человеку"><i class="b-ok" style="width:56%"></i><i class="b-h" style="width:44%"></i></div>
+        <p class="legend"><em>500&nbsp;из&nbsp;500&nbsp;– верно</em><em class="h">220&nbsp;– человеку</em></p>
+        <a class="more" href="https://aipai.ru/razbor/">Смотреть разбор</a>
+      </article>
+      <article class="test">
+        <div class="test-meta"><span>№001 · База знаний (RAG)</span><span>5&nbsp;октября 2026</span></div>
+        <h3>Может&nbsp;ли&nbsp;AI-ассистент ответить на&nbsp;100&nbsp;вопросов клиентов по&nbsp;сайту компании?</h3>
+        <p class="q">Сможет&nbsp;ли&nbsp;AI-ассистент отвечать о&nbsp;ценах, сроках, условиях договора и&nbsp;команде, если его&nbsp;база знаний&nbsp;– тексты нашего сайта.</p>
+        <div class="score"><b>70</b><span>/100&nbsp;оценка</span></div>
+        <div class="bar" role="img" aria-label="90 из 100 верно, 10 передано человеку"><i class="b-ok" style="width:90%"></i><i class="b-h" style="width:10%"></i></div>
+        <p class="legend"><em>90&nbsp;из&nbsp;100&nbsp;– верно</em><em class="h">10&nbsp;– человеку</em></p>
+        <a class="more" href="https://aipai.ru/razbor/">Смотреть разбор</a>
+      </article>
+    </div>
+    <div class="lab-foot"><a class="btn btn-ghost" href="https://aipai.ru/razbor/">Все&nbsp;эксперименты</a></div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Наш&nbsp;проект и&nbsp;проекты для&nbsp;партнёров</h2>
+      <p>Сначала&nbsp;– система, которую мы&nbsp;сделали и&nbsp;каждый день используем сами. Ниже&nbsp;– проекты для&nbsp;наших и&nbsp;партнёрских компаний.</p>
+    </div>
+    <article class="own">
+      <div>
+        <small>Наш&nbsp;проект · работает с&nbsp;30&nbsp;сентября 2026</small>
+        <h3>AI-редакция: новости и&nbsp;статьи для&nbsp;двух сайтов</h3>
+        <p>С&nbsp;30&nbsp;сентября 2026&nbsp;года AI-редакция ведёт новости «Подкаст.Москва»: собирает материалы из&nbsp;23&nbsp;источников индустрии подкастов, каждое утро присылает подборку дня, пишет статьи с&nbsp;иллюстрациями, а&nbsp;владелец одобряет черновик одной кнопкой. С&nbsp;3&nbsp;октября она&nbsp;же&nbsp;следит за&nbsp;98&nbsp;источниками об&nbsp;ИИ&nbsp;и&nbsp;каждый день сама публикует статью в&nbsp;блоге aipai.ru.</p>
+      </div>
+      <div class="own-nums">
+        <div><b>2</b><span>сайта ведёт AI-редакция</span></div>
+        <div><b>121</b><span>источник: 23 + 98&nbsp;в&nbsp;двух редакциях</span></div>
+        <div><b>13&nbsp;000+</b><span>материалов собрано с&nbsp;30.09.2026</span></div>
+        <div><b>1</b><span>нажатие&nbsp;– одобрить черновик</span></div>
+      </div>
+    </article>
+
+    <div class="partners">
+      <h3>Проекты для&nbsp;наших и&nbsp;партнёрских компаний</h3>
+      <p>Как&nbsp;AI встроен в&nbsp;процессы промышленного маркетплейса, проектной компании и&nbsp;музыкального лейбла.</p>
+      <div class="prow"><div><small>Промышленный маркетплейс</small><strong>Биржа-лома.рф</strong></div><h4>AI-диспетчер промышленных сделок: заявки, контрагенты, цены и&nbsp;документы</h4><ul><li>Классификация объявлений и&nbsp;заявок</li><li>Подбор встречной сделки</li><li>Риск-сигнал до&nbsp;менеджера</li></ul><a href="#">Смотреть кейс</a></div>
+      <div class="prow"><div><small>Акустическое проектирование</small><strong>AcousticWorks (ACWO.ru)</strong></div><h4>AI-ассистент проектировщика: от&nbsp;брифа клиента до&nbsp;карты акустического проекта</h4><ul><li>Бриф вместо «нужна тишина»</li><li>Параметры помещения до&nbsp;выезда</li><li>Чек-лист для&nbsp;инженера</li></ul><a href="#">Смотреть кейс</a></div>
+      <div class="prow"><div><small>Музыкальный лейбл</small><strong>Leggo Music (LeggoMusic.ru)</strong></div><h4>AI Label Copilot: релиз, питчинг, статистика и&nbsp;поддержка артиста в&nbsp;одном сценарии</h4><ul><li>Проверка релиза до&nbsp;отправки</li><li>Черновики питча и&nbsp;пресс-релиза</li><li>Ответы артистам о&nbsp;выплатах</li></ul><a href="#">Смотреть кейс</a></div>
+      <p class="note">Ещё&nbsp;типовые сценарии по&nbsp;отраслям&nbsp;– на&nbsp;странице кейсов. Новые кейсы: ИИ-консьерж для&nbsp;Leggo.ae в&nbsp;Дубае и&nbsp;автоматизация ипотечных заявок для&nbsp;сервиса «Ипотека на&nbsp;жильё.рф».</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap scoreblock">
+    <div>
+      <h2>Насколько ваш&nbsp;процесс готов к&nbsp;автоматизации?</h2>
+      <p class="lead" style="margin-top:20px">Ответьте на&nbsp;6&nbsp;вопросов&nbsp;– за&nbsp;2&nbsp;минуты покажем оценку по&nbsp;шести факторам и&nbsp;подскажем, с&nbsp;чего лучше начать.</p>
+      <a class="btn btn-main" href="#">Пройти экспресс-оценку</a>
+      <small>Предварительная оценка, не&nbsp;расчёт окупаемости</small>
+    </div>
+    <div class="radar" aria-label="Пример оценки AIPAI Score">
+      <div class="radar-head"><span>Пример · AIPAI Score</span><b>68<span>/100</span></b></div>
+      <div class="factor">Повторяемость<output>9/10</output><div class="bar"><i class="b-ok" style="width:90%"></i></div></div>
+      <div class="factor">Доступность данных<output>7/10</output><div class="bar"><i class="b-ok" style="width:70%"></i></div></div>
+      <div class="factor">Экономический эффект<output>8/10</output><div class="bar"><i class="b-ok" style="width:80%"></i></div></div>
+      <div class="factor">Риск ошибки<output>4/10</output><small>чем&nbsp;меньше, тем&nbsp;проще</small><div class="bar"><i class="b-h" style="width:40%"></i></div></div>
+      <div class="factor">Сложность внедрения<output>5/10</output><small>чем&nbsp;меньше, тем&nbsp;проще</small><div class="bar"><i class="b-h" style="width:50%"></i></div></div>
+      <div class="factor">Необходимость человека<output>4/10</output><small>чем&nbsp;меньше, тем&nbsp;проще</small><div class="bar"><i class="b-h" style="width:40%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>От&nbsp;идеи до&nbsp;результата за&nbsp;5&nbsp;шагов</h2>
+      <p>Сроки считаем с&nbsp;момента, когда получили доступы и&nbsp;примеры обращений. Смету, KPI и&nbsp;критерии приёмки фиксируем до&nbsp;старта работ.</p>
+    </div>
+    <ol class="steps" style="list-style:none;margin:0;padding:0">
+      <li class="step"><div class="step-dot"><i></i></div><em>1–3&nbsp;дня</em><h3>Разбор задачи</h3><p>Изучаем процесс и&nbsp;данные, находим задачу с&nbsp;самым быстрым эффектом.</p></li>
+      <li class="step"><div class="step-dot"><i></i></div><em>До&nbsp;5&nbsp;дней</em><h3>Смета и&nbsp;критерии</h3><p>Фиксируем смету, KPI и&nbsp;критерии приёмки&nbsp;– до&nbsp;старта работ.</p></li>
+      <li class="step"><div class="step-dot"><i></i></div><em>2–4&nbsp;недели</em><h3>Пилот</h3><p>Настраиваем ассистента и&nbsp;проверяем на&nbsp;реальных обращениях вместе с&nbsp;вашей командой.</p></li>
+      <li class="step"><div class="step-dot"><i></i></div><em>1–3&nbsp;месяца</em><h3>Внедрение</h3><p>Интеграции с&nbsp;вашими системами, обучение команды, запуск на&nbsp;весь отдел.</p></li>
+      <li class="step"><div class="step-dot"><i></i></div><em>Постоянно</em><h3>Развитие</h3><p>Поддерживаем, дообучаем и&nbsp;добавляем новые сценарии.</p></li>
+    </ol>
+    <div class="pilot">
+      <div><small>Пилот · 2–4&nbsp;недели</small><h3>Что&nbsp;нужно от&nbsp;вас</h3><ul><li>Ответственный сотрудник, который знает процесс</li><li>Доступ к&nbsp;каналу обращений (мессенджер, сайт, почта) и&nbsp;к&nbsp;CRM</li><li>30–50&nbsp;примеров типичных обращений или&nbsp;документов</li><li>Прайс, регламенты и&nbsp;ответы на&nbsp;частые вопросы&nbsp;– на&nbsp;них&nbsp;опирается ассистент</li></ul></div>
+      <div><small>Итог пилота</small><h3>Что&nbsp;вы&nbsp;получите</h3><ul><li>Работающего ассистента на&nbsp;одном процессе и&nbsp;в&nbsp;одном канале</li><li>Проверку на&nbsp;реальных обращениях под&nbsp;контролем ваших сотрудников</li><li>Проверку по&nbsp;критериям приёмки, которые согласовали до&nbsp;старта</li><li>Отчёт: сколько обращений обработано, где&nbsp;ассистент ошибался, сколько времени сэкономили</li><li>Решение: масштабировать, доработать или&nbsp;остановиться&nbsp;– без&nbsp;обязательств</li></ul></div>
+      <p class="pilot-note">Полное внедрение&nbsp;– с&nbsp;интеграциями в&nbsp;несколько систем и&nbsp;запуском на&nbsp;весь отдел&nbsp;– занимает 1–3&nbsp;месяца.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec-wrap" id="security">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Ассистент работает по&nbsp;вашим правилам</h2><div class="badges"><span>152-ФЗ</span><span>NDA</span><span>Серверы в&nbsp;РФ</span><span>SSL</span></div></div>
+      <p>Данные остаются в&nbsp;России или&nbsp;у&nbsp;вас, важные действия подтверждает сотрудник, всё&nbsp;записывается в&nbsp;журнал.</p>
+    </div>
+    <div class="sgrid">
+      <div><h3>Работаем по&nbsp;152-ФЗ</h3><p>Персональные данные&nbsp;– по&nbsp;закону, NDA до&nbsp;начала работ</p></div>
+      <div><h3>Хранение в&nbsp;РФ</h3><p>Или&nbsp;в&nbsp;вашем защищённом контуре on-premise</p></div>
+      <div class="human-item"><h3>Человек подтверждает важное</h3><p>Ассистент предлагает, сотрудник утверждает отправку и&nbsp;изменения</p></div>
+      <div><h3>Журнал действий</h3><p>Видно, что&nbsp;сделал ассистент, когда и&nbsp;по&nbsp;какому запросу</p></div>
+      <div><h3>Гибкие права</h3><p>Ролевая модель доступа для&nbsp;сотрудников</p></div>
+      <div><h3>Шифрование и&nbsp;бэкапы</h3><p>Данные защищены при&nbsp;передаче и&nbsp;хранении</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Прозрачная стоимость</h2>
+      <p>Фиксируем цену и&nbsp;критерии приёмки в&nbsp;договоре. Полную смету&nbsp;– с&nbsp;расходами на&nbsp;нейросети и&nbsp;сервер&nbsp;– показываем до&nbsp;старта работ.</p>
+    </div>
+    <div class="plans">
+      <div class="plan"><h3>Старт</h3><p>Проверить гипотезу на&nbsp;одной задаче</p><div class="price">от&nbsp;150&nbsp;000&nbsp;₽</div><small>разовый пилот</small><ul><li>Аудит 1&nbsp;процесса</li><li>AI-ассистент на&nbsp;1&nbsp;канал</li><li>Интеграция с&nbsp;CRM</li><li>Поддержка 1&nbsp;месяц</li></ul><a class="btn btn-ghost" href="#contact">Обсудить проект</a></div>
+      <div class="plan best"><span class="tag">Оптимально для&nbsp;отдела</span><h3>Бизнес</h3><p>Комплексная автоматизация отдела</p><div class="price">от&nbsp;390&nbsp;000&nbsp;₽</div><small>внедрение под&nbsp;ключ</small><ul><li>Аудит до&nbsp;5&nbsp;процессов</li><li>Омниканальный AI-ассистент</li><li>Интеграции с&nbsp;CRM, 1С, почтой</li><li>Обучение команды</li><li>Поддержка 3&nbsp;месяца</li></ul><a class="btn btn-main" href="#contact">Обсудить проект</a></div>
+      <div class="plan"><h3>Enterprise</h3><p>AI-трансформация на&nbsp;уровне компании</p><div class="price">Индивидуально</div><small>для&nbsp;крупных компаний</small><ul><li>Стратегия AI-трансформации</li><li>On-premise развертывание</li><li>Выделенная команда</li><li>SLA по&nbsp;договору</li></ul><a class="btn btn-ghost" href="#contact">Обсудить проект</a></div>
+    </div>
+    <div class="extras">
+      <div><h4>Нейросети и&nbsp;сервер</h4><p>Оплата нейросетей (API) и&nbsp;сервера зависит от&nbsp;объёма обращений. Считаем её&nbsp;на&nbsp;разборе задачи и&nbsp;показываем в&nbsp;смете отдельной строкой.</p></div>
+      <div><h4>Поддержка после запуска</h4><p>В&nbsp;тариф входит поддержка на&nbsp;указанный срок. Что&nbsp;дальше&nbsp;– доработки, дообучение, новые сценарии&nbsp;– обсуждаем заранее и&nbsp;фиксируем в&nbsp;договоре.</p></div>
+      <div><h4>Критерии приёмки</h4><p>До&nbsp;старта договариваемся, что&nbsp;считаем результатом: запуск, долю закрытых обращений или&nbsp;скорость ответа,&nbsp;– и&nbsp;принимаем пилот по&nbsp;этим критериям.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Что&nbsp;говорят клиенты</h2><p style="margin-top:16px">Отзывы о&nbsp;проектах AIPAI&nbsp;– от&nbsp;бота для&nbsp;сайта до&nbsp;ассистента по&nbsp;базе знаний.</p></div>
+      <div class="rev-nav" style="justify-self:end"><button type="button" data-dir="-1" aria-label="Предыдущие отзывы">←</button><button type="button" data-dir="1" aria-label="Следующие отзывы">→</button></div>
+    </div>
+    <div class="reviews" tabindex="0" aria-label="Отзывы клиентов">
+      <figure class="rev"><blockquote>«У&nbsp;нас&nbsp;на&nbsp;сайте много услуг, и&nbsp;посетители часто не&nbsp;понимали, какую выбрать. Писали общий вопрос и&nbsp;ждали, пока освободится менеджер. Обратились в&nbsp;AIPAI за&nbsp;ботом-консультантом. При&nbsp;подготовке выяснилось, что&nbsp;часть описаний даже мы&nbsp;сами трактуем по-разному, поэтому сначала разобрались с&nbsp;информацией. Теперь бот&nbsp;помогает с&nbsp;базовыми вопросами, а&nbsp;сложные обращения передаёт сотруднику. Особенно удобно, когда человек заходит на&nbsp;сайт вечером.»</blockquote><footer><b>AI-бот для&nbsp;сайта</b>Отзыв клиента</footer></figure>
+      <figure class="rev"><blockquote>«Мне&nbsp;нужен был&nbsp;бот, которым я&nbsp;смогу управлять без&nbsp;постоянной помощи программиста. Например, поменять стоимость услуги или&nbsp;добавить ответ на&nbsp;новый вопрос. Эти&nbsp;моменты отдельно обсудили с&nbsp;AIPAI ещё&nbsp;до&nbsp;разработки. Проверяли бота на&nbsp;сообщениях из&nbsp;наших переписок, по&nbsp;ходу дополняли ответы. Сейчас использую его&nbsp;в&nbsp;работе и&nbsp;понимаю, что&nbsp;и&nbsp;где&nbsp;менять. Для&nbsp;меня это&nbsp;было важнее большого количества функций.»</blockquote><footer><b>Telegram-бот для&nbsp;бизнеса</b>Отзыв клиента</footer></figure>
+      <figure class="rev"><blockquote>«Обратились с&nbsp;вполне бытовой проблемой: клиент написал, менеджер ответил, а&nbsp;внести информацию в&nbsp;CRM забыл. Потом приходилось искать переписку и&nbsp;выяснять, о&nbsp;чём&nbsp;договорились. С&nbsp;командой AIPAI настроили передачу данных по&nbsp;обращениям. На&nbsp;старте пришлось обсудить много мелочей, вплоть до&nbsp;того, какие поля нам&nbsp;действительно нужны. Зато теперь в&nbsp;карточках больше полезной информации, и&nbsp;передавать клиента другому сотруднику стало проще.»</blockquote><footer><b>Автоматизация продаж и&nbsp;CRM</b>Отзыв клиента</footer></figure>
+      <figure class="rev"><blockquote>«Я&nbsp;руковожу поддержкой и&nbsp;сначала сомневалась, что&nbsp;автоматические ответы подойдут нашим клиентам. У&nbsp;нас&nbsp;встречаются ситуации, где&nbsp;нужно внимательно разобраться и&nbsp;поговорить с&nbsp;человеком. Поэтому отдельно проработали, какие вопросы ассистент может закрывать сам, а&nbsp;когда должен подключать оператора. В&nbsp;процессе тестирования исправляли формулировки, некоторые показались слишком официальными. В&nbsp;результате получилось общение, которое подходит нашему сервису.»</blockquote><footer><b>AI для&nbsp;клиентской поддержки</b>Руководитель клиентской поддержки</footer></figure>
+      <figure class="rev"><blockquote>«В&nbsp;компании накопилось много инструкций, но&nbsp;пользоваться ими&nbsp;было неудобно. Все&nbsp;знали, что&nbsp;ответ где-то есть, и&nbsp;всё&nbsp;равно шли&nbsp;спрашивать коллег. Заказали в&nbsp;AIPAI ассистента для&nbsp;поиска по&nbsp;внутренним материалам. Самой большой работой с&nbsp;нашей стороны оказалось собрать актуальные документы и&nbsp;убрать старые версии. Теперь информация доступнее, особенно для&nbsp;новых сотрудников. Заодно наконец навели порядок в&nbsp;самой базе знаний.»</blockquote><footer><b>Корпоративный ассистент и&nbsp;база знаний</b>Отзыв клиента</footer></figure>
+      <figure class="rev"><blockquote>«Работаю с&nbsp;контентом и&nbsp;хорошо понимаю, сколько времени уходит на&nbsp;первый черновик. Хотелось ускорить эту&nbsp;часть, сохранив наш&nbsp;стиль и&nbsp;нормальный редакторский контроль. С&nbsp;AIPAI разобрали примеры публикаций, частые темы и&nbsp;формулировки, которые мы&nbsp;не&nbsp;используем. Первые варианты дорабатывали вместе. Сейчас с&nbsp;заготовками удобнее работать: я&nbsp;добавляю фактуру, проверяю содержание и&nbsp;редактирую текст. До&nbsp;готовой публикации добираюсь быстрее.»</blockquote><footer><b>AI для&nbsp;контента и&nbsp;маркетинга</b>Отвечает за&nbsp;контент</footer></figure>
+      <figure class="rev"><blockquote>«Раньше перед совещанием приходилось открывать несколько таблиц и&nbsp;вручную собирать из&nbsp;них&nbsp;общую картину. Обратились в&nbsp;AIPAI, чтобы упростить подготовку отчётности. Хорошо, что&nbsp;начали с&nbsp;проверки исходных данных: в&nbsp;разных файлах одни и&nbsp;те&nbsp;же&nbsp;показатели считались немного по-разному. Согласовали определения, разобрались с&nbsp;источниками, затем настроили сбор. Мне&nbsp;стало удобнее следить за&nbsp;показателями и&nbsp;задавать команде конкретные вопросы.»</blockquote><footer><b>Аналитика и&nbsp;отчётность</b>Отзыв клиента</footer></figure>
+      <figure class="rev"><blockquote>«У&nbsp;нас&nbsp;много повторяющихся документов, из&nbsp;которых сотрудники переносили данные вручную. Попросили AIPAI помочь с&nbsp;этой частью работы. Для&nbsp;проверки специально собрали разные образцы, включая неудобные сканы и&nbsp;нестандартное оформление. На&nbsp;них&nbsp;стало видно, что&nbsp;можно обрабатывать автоматически, а&nbsp;где&nbsp;нужна дополнительная проверка. Теперь сотрудник больше занимается сверкой результата. Для&nbsp;нашего рабочего процесса это&nbsp;полезное изменение.»</blockquote><footer><b>Автоматизация работы с&nbsp;документами</b>Отзыв клиента</footer></figure>
+      <figure class="rev"><blockquote>«Новые сотрудники часто задают одинаковые организационные вопросы: где&nbsp;взять шаблон, к&nbsp;кому обратиться, как&nbsp;оформить запрос. Решили сделать помощника по&nbsp;адаптации и&nbsp;обратились в&nbsp;AIPAI. Я&nbsp;участвовала со&nbsp;стороны HR: собирала материалы и&nbsp;проверяла ответы. Понравилось, что&nbsp;инструкции пришлось изложить простым языком&nbsp;– это&nbsp;оказалось полезно всем. Теперь у&nbsp;новичков есть дополнительный способ разобраться самостоятельно, а&nbsp;личные вопросы они&nbsp;по-прежнему обсуждают с&nbsp;нами.»</blockquote><footer><b>AI-инструменты для&nbsp;HR и&nbsp;адаптации</b>Со&nbsp;стороны HR</footer></figure>
+      <figure class="rev"><blockquote>«Пришёл на&nbsp;консультацию с&nbsp;длинным списком идей и&nbsp;довольно смутным представлением о&nbsp;том, сколько сил&nbsp;потребует внедрение. По&nbsp;каждой задаче обсудили, какие данные нужны и&nbsp;кто&nbsp;будет пользоваться результатом. В&nbsp;итоге выбрали один процесс для&nbsp;начала. Такой подход мне&nbsp;подошёл: можно проверить решение в&nbsp;ежедневной работе и&nbsp;уже&nbsp;после этого планировать следующие шаги.»</blockquote><footer><b>Консультация и&nbsp;внедрение AI в&nbsp;бизнес</b>Отзыв клиента</footer></figure>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap faq">
+    <div class="faq-aside"><h2>Частые вопросы</h2><p>Не&nbsp;нашли ответ? Задайте вопрос на&nbsp;бесплатном разборе задачи&nbsp;– ответим в&nbsp;течение часа в&nbsp;рабочее время.</p></div>
+    <div>
+      <details open><summary>Сколько времени занимает внедрение?</summary><p>Пилот на&nbsp;одном процессе&nbsp;– 2–4&nbsp;недели с&nbsp;момента, когда мы&nbsp;получили доступы и&nbsp;примеры обращений. Полное внедрение с&nbsp;интеграциями и&nbsp;запуском на&nbsp;весь отдел&nbsp;– 1–3&nbsp;месяца.</p></details>
+      <details><summary>Нужна&nbsp;ли&nbsp;у&nbsp;нас&nbsp;своя IT-команда?</summary><p>Нет. Мы&nbsp;берем на&nbsp;себя всё: аудит, разработку, интеграции, обучение сотрудников и&nbsp;поддержку. От&nbsp;вас&nbsp;нужен ответственный со&nbsp;стороны бизнеса.</p></details>
+      <details><summary>Как&nbsp;вы&nbsp;гарантируете результат?</summary><p>Фиксируем KPI и&nbsp;критерии приёмки в&nbsp;договоре до&nbsp;старта работ. Пилот принимаем по&nbsp;этим критериям&nbsp;– если цель не&nbsp;достигнута, разбираем причины и&nbsp;дорабатываем.</p></details>
+      <details><summary>Безопасно&nbsp;ли&nbsp;передавать данные?</summary><p>Да. Работаем по&nbsp;152-ФЗ, храним данные на&nbsp;серверах в&nbsp;РФ&nbsp;или&nbsp;разворачиваем решение в&nbsp;вашем контуре. Подписываем NDA.</p></details>
+      <details><summary>Можно встретиться лично?</summary><p>Да. Наш&nbsp;офис&nbsp;– в&nbsp;Москве: г. Москва, Малый Дровяной пер., 3, стр. 2. Можем и&nbsp;приехать к&nbsp;вам: провести разбор задачи, аудит процессов или&nbsp;обучение команды на&nbsp;месте. Время согласуем по&nbsp;телефону +7 (926) 099-99-27&nbsp;или&nbsp;в&nbsp;WhatsApp.</p></details>
+      <details><summary>С&nbsp;какими системами вы&nbsp;интегрируетесь?</summary><p>Bitrix24, amoCRM, 1С, Telegram, WhatsApp, почта, ваш&nbsp;сайт, ERP-системы и&nbsp;любые сервисы с&nbsp;API.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Команда AIPAI: кто&nbsp;внедряет ИИ&nbsp;в&nbsp;ваш&nbsp;бизнес</h2>
+      <p>AIPAI выросла из&nbsp;практики в&nbsp;digital, маркетинге и&nbsp;автоматизации. Всё, что&nbsp;внедряем клиентам, сначала проверяем на&nbsp;своих процессах. Познакомиться можно лично&nbsp;– в&nbsp;офисе в&nbsp;Москве или&nbsp;у&nbsp;вас.</p>
+    </div>
+    <div class="team">
+      <div class="member"><div class="ava">ВЗ</div><div><h3>Виктор Зотов</h3><b>Основатель и&nbsp;руководитель AIPAI</b><p>Отвечает за&nbsp;развитие компании, работу с&nbsp;клиентами и&nbsp;результаты проектов.</p></div></div>
+      <div class="member"><div class="ava">ПГ</div><div><h3>Павел Гусинин</h3><b>Руководитель AI-проектов</b><p>Разбирает задачи бизнеса, составляет план внедрения и&nbsp;контролирует сроки.</p></div></div>
+      <div class="member"><div class="ava">СК</div><div><h3>Сергей Кузьмичев</h3><b>Разработчик AI-агентов и&nbsp;чат-ботов</b><p>Создаёт интеллектуальных помощников для&nbsp;клиентов и&nbsp;сотрудников.</p></div></div>
+      <div class="member"><div class="ava">ВТ</div><div><h3>Виталий Туманов</h3><b>Специалист по&nbsp;автоматизации и&nbsp;интеграциям</b><p>Соединяет сайт, CRM, мессенджеры и&nbsp;внутренние сервисы в&nbsp;единый рабочий процесс.</p></div></div>
+      <div class="member"><div class="ava">АВ</div><div><h3>Алексей Волков</h3><b>Инженер баз&nbsp;знаний и&nbsp;RAG-систем</b><p>Настраивает поиск и&nbsp;ответы AI по&nbsp;документам, инструкциям и&nbsp;данным компании.</p></div></div>
+      <div class="member"><div class="ava">ЕМ</div><div><h3>Елена Минина</h3><b>Специалист по&nbsp;AI-контенту</b><p>Создаёт системы подготовки текстов, изображений и&nbsp;публикаций с&nbsp;проверкой редактором.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>Готовы внедрить AI и&nbsp;получить результат?</h2>
+        <p>Оставьте заявку&nbsp;– эксперт свяжется с&nbsp;вами в&nbsp;течение часа в&nbsp;рабочее время и&nbsp;предложит решение под&nbsp;вашу задачу.</p>
+        <ul><li>Бесплатный разбор задачи&nbsp;– 30&nbsp;минут</li><li>Встреча в&nbsp;нашем офисе в&nbsp;Москве или&nbsp;выезд к&nbsp;вам</li><li>Оценка эффекта и&nbsp;бюджета пилота</li><li>Подбор 3&nbsp;сценариев внедрения</li></ul>
+        <h4>Что&nbsp;полезно рассказать на&nbsp;разборе</h4>
+        <p class="tell">Как&nbsp;процесс работает сейчас и&nbsp;кто&nbsp;в&nbsp;нём&nbsp;участвует. Что&nbsp;занимает больше всего времени или&nbsp;создаёт ошибки. Какие системы задействованы: CRM, 1С, мессенджеры, таблицы.</p>
+        <a class="tel" href="tel:+79260999927">+7 (926) 099-99-27</a>
+      </div>
+      <form class="form" novalidate>
+        <h3>Бесплатный разбор задачи</h3>
+        <p>30&nbsp;минут онлайн, в&nbsp;нашем офисе в&nbsp;Москве или&nbsp;у&nbsp;вас: разберём процесс, предложим 2–3&nbsp;сценария и&nbsp;прикинем бюджет и&nbsp;сроки пилота. Ни&nbsp;к&nbsp;чему не&nbsp;обязывает.</p>
+        <label>Имя<input type="text" name="name" autocomplete="name"></label>
+        <label>Телефон<input type="tel" name="phone" autocomplete="tel"></label>
+        <label>Компания<input type="text" name="company" autocomplete="organization"></label>
+        <label>Сайт<input type="url" name="site"></label>
+        <label class="agree"><input type="checkbox" checked>Я&nbsp;даю&nbsp;согласие на&nbsp;обработку персональных данных и&nbsp;подтверждаю, что&nbsp;ознакомлен(а) с&nbsp;политикой конфиденциальности</label>
+        <button class="btn btn-main" type="submit">Записаться на&nbsp;разбор</button>
+        <p class="form-msg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <h2>Внедрение искусственного интеллекта для&nbsp;бизнеса</h2>
+    <div class="about-txt">
+      <p>AIPAI внедряет искусственный интеллект в&nbsp;бизнес под&nbsp;ключ: от&nbsp;разбора процессов до&nbsp;работающего решения и&nbsp;поддержки после запуска. Мы&nbsp;разрабатываем AI-агентов и&nbsp;чат-ботов для&nbsp;сайта и&nbsp;мессенджеров, ассистентов по&nbsp;базе знаний и&nbsp;системы автоматизации документов и&nbsp;подключаем их&nbsp;к&nbsp;CRM, 1С и&nbsp;корпоративным сервисам.</p>
+      <div><h3>Зачем бизнесу искусственный интеллект</h3><p>ИИ&nbsp;берёт на&nbsp;себя повторяющуюся работу: отвечает на&nbsp;типовые обращения, переносит данные из&nbsp;документов, готовит черновики писем и&nbsp;отчётов, находит ответы в&nbsp;регламентах. Сотрудники тратят меньше времени на&nbsp;рутину, клиенты быстрее получают ответ, а&nbsp;руководитель видит, как&nbsp;работает процесс.</p></div>
+      <div><h3>Для&nbsp;каких компаний подходят AI-решения</h3><p>Мы&nbsp;работаем с&nbsp;ритейлом и&nbsp;e-commerce, сферой услуг, производством, логистикой, недвижимостью, медициной, финансами и&nbsp;образованием. Больше всего пользы там, где&nbsp;много заявок, документов и&nbsp;вопросов к&nbsp;базе знаний.</p></div>
+      <div><h3>Как&nbsp;проходит внедрение ИИ</h3><p>Начинаем с&nbsp;разбора задачи и&nbsp;сметы, затем запускаем пилот на&nbsp;одном процессе и&nbsp;проверяем его&nbsp;на&nbsp;реальных обращениях. После этого подключаем интеграции, обучаем команду и&nbsp;развиваем решение. Данные храним в&nbsp;России или&nbsp;в&nbsp;вашем контуре, работаем по&nbsp;152-ФЗ.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© AIPAI · г. Москва, Малый Дровяной пер., 3, стр. 2</span>
+    <nav aria-label="Нижнее меню"><a href="#solutions">Решения</a><a href="https://aipai.ru/razbor/">Разбор</a><a href="#cases">Кейсы</a><a href="#pricing">Тарифы</a><a href="https://aipai.ru/blog/">Блог</a><a href="tel:+79260999927">+7 (926) 099-99-27</a></nav>
+  </div>
+</footer>
+
+<script src="demo.js"></script>
+</body>
+</html>
